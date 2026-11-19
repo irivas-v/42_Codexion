@@ -10,6 +10,29 @@ A high-performance multithreaded concurrency simulation built in C (C89), modeli
 
 **Codexion** is an advanced concurrency project at 42 Madrid, extending the classical Dining Philosophers problem by introducing real-world distributed system constraints: shared hardware devices (dongles), priority scheduling via Min-Heap priority queues, hardware cooldown periods, and real-time burnout monitoring.
 
+### Execution Flow & Concurrency Sequence
+
+The following sequence diagram illustrates the lifecycle of the system, from initialization and resource allocation by the main thread, through concurrent coder cycles and priority queue arbitration on the dongles, up to real-time supervisor monitoring and clean termination:
+
+![Execution Flow & Concurrency Sequence](./Secuencia_temporal_y_concurrrencia.svg)
+
+#### Sequence Walkthrough:
+1. **Initialization (`Main`)**: Validates input arguments, initializes simulation structures (`init_simulation`), sets the global reference clock (`start_time`), and spawns $N$ coder threads (`coder_routine`) alongside the supervisor thread (`monitor_routine`).
+2. **Work Cycle (`Coders`)**:
+   - Acquires shared keys via asymmetrical indexing (`take_dongle`), waiting in the dongle's binary Min-Heap priority queue (`pthread_cond_wait`).
+   - Compiles holding both keys for `time_to_compile` ms (`is compiling`).
+   - Releases both keys, triggering the hardware cooldown (`dongle_cooldown`), and transitions through `is debugging` and `is refactoring`.
+3. **Hardware & Priority Arbitration (`Dongles`)**:
+   - Resolves acquisition contention using either **FIFO** (arrival timestamp) or **EDF** (earliest burnout deadline).
+   - Enforces the hardware cooldown period via `pthread_cond_timedwait` before granting ownership to the next queued thread.
+4. **Active Supervision (`Monitor`)**:
+   - Polls all coders every $500$ µs (`check_all_coders`).
+   - **Case A (Burnout detected)**: If any coder exceeds `time_to_burnout`, atomically asserts `simulation_stop = 1` under `log_lock` (`stop_with_burnout`), outputs the post-mortem log, broadcasts to all dongle condition variables, and exits.
+   - **Case B (Goal completion)**: If all coders reach `compiles_required`, triggers `set_simulation_stop` and broadcasts to all dongles.
+5. **Teardown & Cleanup (`Main`)**:
+   - Unblocked by condition variable broadcasts, all threads exit cleanly and are gathered via `pthread_join()`.
+   - The main thread invokes `cleanup_simulation()`, destroying all mutexes/condition variables and releasing heap memory with zero leaks.
+
 ### Problem Overview
 - **Coders and Hardware Keys**: $N$ coders ($N \ge 1$) sit in a ring. Between each pair of coders lies a single shared hardware dongle (total $N$ dongles). To compile their code, a coder must simultaneously hold two dongles: their left dongle and their right dongle.
 - **Coder Life Cycle**: Each coder continuously cycles through three states:
@@ -46,7 +69,7 @@ make re
 
 ### Execution Syntax
 ```bash
-./codexion number_of_coders time_to_burnout time_to_compile time_to_debug time_to_refactor [number_of_compiles_required] dongle_cooldown scheduler
+./codexion number_of_coders time_to_burnout time_to_compile time_to_debug time_to_refactor number_of_compiles_required dongle_cooldown scheduler
 ```
 
 ### Parameters
@@ -57,21 +80,125 @@ make re
 | `time_to_compile` | Time (in ms) spent compiling while holding two dongles. |
 | `time_to_debug` | Time (in ms) spent debugging after releasing dongles. |
 | `time_to_refactor` | Time (in ms) spent refactoring before requesting dongles again. |
-| `[number_of_compiles_required]` | *(Optional)* If specified, simulation stops cleanly once all coders compile this many times. |
+| `number_of_compiles_required` | Number of times each coder must compile before the simulation terminates cleanly. |
 | `dongle_cooldown` | Time (in ms) a dongle must cool down after release before being acquired again. |
 | `scheduler` | Priority scheduling algorithm: `fifo` or `edf`. |
 
-### Execution Examples
+---
+
+## Test Cases and Execution Scenarios
+
+### 1. General Survival Cases
+Standard multi-threaded scenarios where all coders cooperate, share dongles, and complete their required compilations cleanly:
+
 ```bash
-# 4 coders, 800ms burnout, 60ms compile/debug/refactor, target 2 compiles, 10ms cooldown, EDF policy
+# 4 coders, 800ms burnout, 60ms operations, goal 2 compiles, 10ms cooldown, EDF policy
 ./codexion 4 800 60 60 60 2 10 edf
 
-# 4 coders under FIFO policy
-./codexion 4 800 60 60 60 2 10 fifo
+# 5 coders, 800ms burnout, 100ms compile/debug/refactor, goal 3 compiles, 10ms cooldown, FIFO policy
+./codexion 5 800 100 100 100 3 10 fifo
+```
 
-# 1 coder edge case (burnout is inevitable as 2 dongles are required)
+### 2. Edge Cases (Casos Límite)
+
+#### A. Single Coder Edge Case ($N = 1$)
+With only one coder, there is only one dongle on the table. Because a coder strictly requires two dongles to compile, burnout is inevitable:
+```bash
 ./codexion 1 800 200 100 100 2 10 edf
 ```
+- **Expected behavior:** The coder takes the single available dongle at $t=0$, waits until $t=800$, prints `800 1 burned out`, and terminates immediately.
+- **Evaluation criterion:** Zero messages after death, exact $800$ ms timing ($\pm 10$ ms), and zero memory leaks.
+
+#### B. Burnout Threshold Sensitivity (Death vs. Survival by 15 ms)
+In a 4-coder ring with $100$ ms compile, $50$ ms debug, $50$ ms refactor, and $10$ ms cooldown, the full turnaround cycle before opposite pairs get dongles back is $220$ ms:
+```bash
+# Test A: Tight Burnout (burnout threshold = 215 ms) -> Burnout triggered
+./codexion 4 215 100 50 50 3 10 edf
+```
+- **Outcome:** Coder 1 burns out at exactly $215$ ms (`215 1 burned out`) before dongles can be acquired.
+
+```bash
+# Test B: Safe Threshold (burnout threshold = 230 ms) -> Clean completion
+./codexion 4 230 100 50 50 3 10 edf
+```
+- **Outcome:** With only $15$ ms of extra margin, all 4 coders survive and complete their 3 compiles.
+
+#### C. Hardware Cooldown-Induced Starvation
+Forcing a scenario where the dongle hardware cooldown exceeds the coder's remaining lifespan:
+```bash
+./codexion 2 120 100 50 50 2 30 edf
+```
+- **Outcome:** Coder 1 releases the dongles at $100$ ms, but cooldown keeps them locked until $130$ ms. Coder 2 burns out at $120$ ms waiting for the cooldown timer.
+
+#### D. High-Concurrency Stress Testing (100 and 199 Coders)
+Testing system scalability, thread synchronization, and clean heap destruction up to the subject limit:
+```bash
+# 100 concurrent coders and dongles (even topology)
+./codexion 100 800 60 60 60 1 10 edf | wc -l
+# Expected output: 300 lines (100 * 3 actions) in < 0.2s
+
+# 199 concurrent coders and dongles (odd topology)
+./codexion 199 800 60 60 60 1 10 edf | wc -l
+# Expected output: 597 lines in < 0.3s without deadlocks
+```
+
+#### E. Input Validation & Argument Robustness
+All invalid argument combinations must be rejected with `Error: Invalid arguments` and exit code `1`:
+```bash
+# Negative numbers
+./codexion -4 800 60 60 60 2 10 edf
+
+# Zero coders
+./codexion 0 800 60 60 60 2 10 edf
+
+# Non-numeric strings
+./codexion 4 800abc 60 60 60 2 10 edf
+
+# Unknown scheduling algorithm
+./codexion 4 800 60 60 60 2 10 round_robin
+
+# Missing arguments
+./codexion 4 800 60 60 60 2 10
+```
+
+---
+
+### 3. Demonstrating Schedulers: FIFO vs. EDF Divergence
+
+To observe observable divergence between **FIFO** and **EDF**, the simulation requires **queue contention** where multiple coders request the same dongle simultaneously under tight cooldown and refactoring timings:
+
+```bash
+# Run 4-coder contention test under FIFO
+./codexion 4 800 100 10 10 3 20 fifo | grep "is compiling"
+
+# Run 4-coder contention test under EDF
+./codexion 4 800 100 10 10 3 20 edf | grep "is compiling"
+```
+
+#### Output Comparison:
+```text
+FIFO Compilation Trace:                     EDF Compilation Trace:
+----------------------------------          ----------------------------------
+0 1 is compiling                            0 1 is compiling
+0 3 is compiling                            0 3 is compiling
+120 2 is compiling  <-- Both 2 and 4        120 4 is compiling  <-- ONLY 4 compiles!
+120 4 is compiling      compile in parallel                     Coder 2 is queued.
+240 1 is compiling                          240 3 is compiling  <-- Coder 3 overtakes!
+240 3 is compiling                          360 2 is compiling  <-- Coder 2 compiles late.
+360 2 is compiling                          480 3 is compiling
+360 4 is compiling                          480 1 is compiling
+480 1 is compiling                          600 4 is compiling
+480 3 is compiling                          600 2 is compiling
+600 2 is compiling                          720 1 is compiling
+600 4 is compiling                          840 4 is compiling
+                                            840 2 is compiling
+```
+
+#### Technical Explanation:
+- **Parameters:** `time_to_compile = 100`, `time_to_debug = 10`, `time_to_refactor = 10` (total turnaround $20$ ms), `dongle_cooldown = 20` ms.
+- At $t = 120$ ms, dongles 0, 1, 2, and 3 finish their cooldown. Coders 1 and 3 arrive back from refactoring ($100 + 10 + 10 = 120$ ms), while Coders 2 and 4 have been queued since $t = 1$ ms.
+- **Under FIFO:** Priority is ordered by request timestamp (`arrival_time`). Coders 2 and 4 have earlier arrival times ($t = 1 < 120$). FIFO serves both coders simultaneously, maintaining symmetrical opposite-pair execution and finishing in $700$ ms.
+- **Under EDF:** Priority is ordered by burnout deadline (`last_compile_time + time_to_burnout`). Under equal deadlines ($800$ ms), the tie-breaker prefers higher coder IDs (`coder_id > b->coder_id`). Coder 4 wins Dongle 3 against Coder 3 ($4 > 3$), and Coder 3 wins Dongle 2 against Coder 2 ($3 > 2$). Coder 4 compiles alone at $120$ ms, breaking parallel pair symmetry and fundamentally shifting the subsequent compilation timeline.
 
 ---
 

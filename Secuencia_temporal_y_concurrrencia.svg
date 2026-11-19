@@ -1,0 +1,203 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1059.7640000000001 1258" width="1059.7640000000001" height="1258" style="--bg:#18181B;--fg:#F4F4F5;--line:#71717A;--muted:#A1A1AA;--surface:#27272A;--border:#3F3F46;background:var(--bg)">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap');
+  text { font-family: 'Inter', system-ui, sans-serif; }
+  svg {
+    /* Derived from --bg and --fg (overridable via --line, --accent, etc.) */
+    --_text:          var(--fg);
+    --_text-sec:      var(--muted, color-mix(in srgb, var(--fg) 60%, var(--bg)));
+    --_text-muted:    var(--muted, color-mix(in srgb, var(--fg) 40%, var(--bg)));
+    --_text-faint:    color-mix(in srgb, var(--fg) 25%, var(--bg));
+    --_line:          var(--line, color-mix(in srgb, var(--fg) 50%, var(--bg)));
+    --_arrow:         var(--accent, color-mix(in srgb, var(--fg) 85%, var(--bg)));
+    --_node-fill:     var(--surface, color-mix(in srgb, var(--fg) 3%, var(--bg)));
+    --_node-stroke:   var(--border, color-mix(in srgb, var(--fg) 20%, var(--bg)));
+    --_group-fill:    var(--bg);
+    --_group-hdr:     color-mix(in srgb, var(--fg) 5%, var(--bg));
+    --_inner-stroke:  color-mix(in srgb, var(--fg) 12%, var(--bg));
+    --_key-badge:     color-mix(in srgb, var(--fg) 10%, var(--bg));
+  }
+</style>
+<defs>
+  <marker id="seq-arrow" markerWidth="8" markerHeight="5" refX="8" refY="2.5" orient="auto-start-reverse">
+    <polygon points="0 0, 8 2.5, 0 5" fill="var(--_arrow)" />
+  </marker>
+  <marker id="seq-arrow-open" markerWidth="8" markerHeight="5" refX="8" refY="2.5" orient="auto-start-reverse">
+    <polyline points="0 0, 8 2.5, 0 5" fill="none" stroke="var(--_arrow)" stroke-width="1" />
+  </marker>
+</defs>
+<line class="lifeline" data-actor="Main" x1="104.03200000000001" y1="70" x2="104.03200000000001" y2="1228" stroke="var(--_line)" stroke-width="0.75" stroke-dasharray="6 4" />
+<line class="lifeline" data-actor="Coders" x1="389.36400000000003" y1="70" x2="389.36400000000003" y2="1228" stroke="var(--_line)" stroke-width="0.75" stroke-dasharray="6 4" />
+<line class="lifeline" data-actor="Dongles" x1="638.162" y1="70" x2="638.162" y2="1228" stroke="var(--_line)" stroke-width="0.75" stroke-dasharray="6 4" />
+<line class="lifeline" data-actor="Monitor" x1="805.4780000000001" y1="70" x2="805.4780000000001" y2="1228" stroke="var(--_line)" stroke-width="0.75" stroke-dasharray="6 4" />
+<g class="block" data-type="alt" data-label="Algún coder supera time_to_burnout">
+  <rect x="552.648" y="724" width="477.1160000000001" height="264" rx="0" ry="0" fill="none" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="552.648" y="724" width="259" height="20" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="560.648" y="734" font-size="11" font-weight="600" fill="var(--_text-sec)" dy="3.8499999999999996">alt [Algún coder supera time_to_burnout]</text>
+  <line x1="552.648" y1="870" x2="1029.7640000000001" y2="870" stroke="var(--_line)" stroke-width="0.75" stroke-dasharray="6 4" />
+  <rect x="557.648" y="875.85" width="211" height="16.3" rx="2" ry="2" fill="var(--bg)" />
+  <text x="560.648" y="884" font-size="11" text-anchor="start" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">[Todos alcanzaron compiles_required]</text>
+</g>
+<g class="block" data-type="loop" data-label="Cada 500 µs">
+  <rect x="310.519" y="656" width="719.2450000000001" height="332" rx="0" ry="0" fill="none" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="310.519" y="656" width="132" height="20" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="318.519" y="666" font-size="11" font-weight="600" fill="var(--_text-sec)" dy="3.8499999999999996">loop [Cada 500 µs]</text>
+</g>
+<g class="block" data-type="par" data-label="Ciclo de Trabajo">
+  <rect x="310.519" y="368" width="719.2450000000001" height="620" rx="0" ry="0" fill="none" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="310.519" y="368" width="151" height="20" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="318.519" y="378" font-size="11" font-weight="600" fill="var(--_text-sec)" dy="3.8499999999999996">par [Ciclo de Trabajo]</text>
+  <line x1="310.519" y1="668" x2="1029.7640000000001" y2="668" stroke="var(--_line)" stroke-width="0.75" stroke-dasharray="6 4" />
+  <rect x="315.519" y="673.85" width="127" height="16.3" rx="2" ry="2" fill="var(--bg)" />
+  <text x="318.519" y="682" font-size="11" text-anchor="start" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">[Supervisión Continua]</text>
+</g>
+<g class="message" data-from="Main" data-to="Main" data-label="parse_args() + init_simulation()" data-line-style="solid" data-arrow-head="filled" data-self="true" data-step="1">
+  <polyline points="104.03200000000001,90 134.032,90 134.032,110 104.03200000000001,110" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#seq-arrow)" />
+  <rect x="139.032" y="91.85" width="166" height="16.3" rx="2" ry="2" fill="var(--bg)" />
+  <text x="142.032" y="100" font-size="11" text-anchor="start" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">parse_args() + init_simulation()</text>
+  <circle class="sequence-number" cx="104.03200000000001" cy="90" r="9" fill="var(--_arrow)" stroke="var(--bg)" stroke-width="1" />
+  <text x="104.03200000000001" y="90" class="sequence-number-label" font-size="10" text-anchor="middle" font-weight="600" fill="var(--bg)" dy="3.5">1</text>
+</g>
+<g class="message" data-from="Main" data-to="Main" data-label="start_simulation(): Sincroniza start_time" data-line-style="solid" data-arrow-head="filled" data-self="true" data-step="2">
+  <polyline points="104.03200000000001,160 134.032,160 134.032,180 104.03200000000001,180" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#seq-arrow)" />
+  <rect x="139.032" y="161.85" width="210" height="16.3" rx="2" ry="2" fill="var(--bg)" />
+  <text x="142.032" y="170" font-size="11" text-anchor="start" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">start_simulation(): Sincroniza start_time</text>
+  <circle class="sequence-number" cx="104.03200000000001" cy="160" r="9" fill="var(--_arrow)" stroke="var(--bg)" stroke-width="1" />
+  <text x="104.03200000000001" y="160" class="sequence-number-label" font-size="10" text-anchor="middle" font-weight="600" fill="var(--bg)" dy="3.5">2</text>
+</g>
+<g class="message" data-from="Main" data-to="Coders" data-label="pthread_create(coder_routine)" data-line-style="solid" data-arrow-head="filled" data-self="false" data-step="3">
+  <line x1="104.03200000000001" y1="230" x2="389.36400000000003" y2="230" stroke="var(--_line)" stroke-width="1" marker-end="url(#seq-arrow)" />
+  <rect x="161.69800000000004" y="211.85" width="170" height="16.3" rx="2" ry="2" fill="var(--bg)" />
+  <text x="246.69800000000004" y="220" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">pthread_create(coder_routine)</text>
+  <circle class="sequence-number" cx="104.03200000000001" cy="230" r="9" fill="var(--_arrow)" stroke="var(--bg)" stroke-width="1" />
+  <text x="104.03200000000001" y="230" class="sequence-number-label" font-size="10" text-anchor="middle" font-weight="600" fill="var(--bg)" dy="3.5">3</text>
+</g>
+<g class="message" data-from="Main" data-to="Monitor" data-label="pthread_create(monitor_routine)" data-line-style="solid" data-arrow-head="filled" data-self="false" data-step="4">
+  <line x1="104.03200000000001" y1="270" x2="805.4780000000001" y2="270" stroke="var(--_line)" stroke-width="1" marker-end="url(#seq-arrow)" />
+  <rect x="366.25500000000005" y="251.85" width="177" height="16.3" rx="2" ry="2" fill="var(--bg)" />
+  <text x="454.75500000000005" y="260" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">pthread_create(monitor_routine)</text>
+  <circle class="sequence-number" cx="104.03200000000001" cy="270" r="9" fill="var(--_arrow)" stroke="var(--bg)" stroke-width="1" />
+  <text x="104.03200000000001" y="270" class="sequence-number-label" font-size="10" text-anchor="middle" font-weight="600" fill="var(--bg)" dy="3.5">4</text>
+</g>
+<g class="message" data-from="Main" data-to="Main" data-label="wait_simulation() [Bloqueado en pthread_join]" data-line-style="solid" data-arrow-head="filled" data-self="true" data-step="5">
+  <polyline points="104.03200000000001,310 134.032,310 134.032,330 104.03200000000001,330" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#seq-arrow)" />
+  <rect x="139.032" y="311.85" width="239" height="16.3" rx="2" ry="2" fill="var(--bg)" />
+  <text x="142.032" y="320" font-size="11" text-anchor="start" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">wait_simulation() [Bloqueado en pthread_join]</text>
+  <circle class="sequence-number" cx="104.03200000000001" cy="310" r="9" fill="var(--_arrow)" stroke="var(--bg)" stroke-width="1" />
+  <text x="104.03200000000001" y="310" class="sequence-number-label" font-size="10" text-anchor="middle" font-weight="600" fill="var(--bg)" dy="3.5">5</text>
+</g>
+<g class="message" data-from="Coders" data-to="Dongles" data-label="take_dongle() (Asimétrico: Min ID -&gt; Max ID)" data-line-style="solid" data-arrow-head="filled" data-self="false" data-step="6">
+  <line x1="389.36400000000003" y1="408" x2="638.162" y2="408" stroke="var(--_line)" stroke-width="1" marker-end="url(#seq-arrow)" />
+  <rect x="400.26300000000003" y="389.85" width="227" height="16.3" rx="2" ry="2" fill="var(--bg)" />
+  <text x="513.763" y="398" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">take_dongle() (Asimétrico: Min ID -&gt; Max ID)</text>
+  <circle class="sequence-number" cx="389.36400000000003" cy="408" r="9" fill="var(--_arrow)" stroke="var(--bg)" stroke-width="1" />
+  <text x="389.36400000000003" y="408" class="sequence-number-label" font-size="10" text-anchor="middle" font-weight="600" fill="var(--bg)" dy="3.5">6</text>
+</g>
+<g class="message" data-from="Dongles" data-to="Coders" data-label="Adquisición / Espera en Min-Heap" data-line-style="dashed" data-arrow-head="filled" data-self="false" data-step="7">
+  <line x1="638.162" y1="448" x2="389.36400000000003" y2="448" stroke="var(--_line)" stroke-width="1" stroke-dasharray="6 4" marker-end="url(#seq-arrow)" />
+  <rect x="422.26300000000003" y="429.85" width="183" height="16.3" rx="2" ry="2" fill="var(--bg)" />
+  <text x="513.763" y="438" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">Adquisición / Espera en Min-Heap</text>
+  <circle class="sequence-number" cx="638.162" cy="448" r="9" fill="var(--_arrow)" stroke="var(--bg)" stroke-width="1" />
+  <text x="638.162" y="448" class="sequence-number-label" font-size="10" text-anchor="middle" font-weight="600" fill="var(--bg)" dy="3.5">7</text>
+</g>
+<g class="message" data-from="Coders" data-to="Coders" data-label="is compiling (time_to_compile)" data-line-style="solid" data-arrow-head="filled" data-self="true" data-step="8">
+  <polyline points="389.36400000000003,488 419.36400000000003,488 419.36400000000003,508 389.36400000000003,508" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#seq-arrow)" />
+  <rect x="424.36400000000003" y="489.85" width="157" height="16.3" rx="2" ry="2" fill="var(--bg)" />
+  <text x="427.36400000000003" y="498" font-size="11" text-anchor="start" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">is compiling (time_to_compile)</text>
+  <circle class="sequence-number" cx="389.36400000000003" cy="488" r="9" fill="var(--_arrow)" stroke="var(--bg)" stroke-width="1" />
+  <text x="389.36400000000003" y="488" class="sequence-number-label" font-size="10" text-anchor="middle" font-weight="600" fill="var(--bg)" dy="3.5">8</text>
+</g>
+<g class="message" data-from="Coders" data-to="Dongles" data-label="release_dongle() (Activa dongle_cooldown)" data-line-style="solid" data-arrow-head="filled" data-self="false" data-step="9">
+  <line x1="389.36400000000003" y1="558" x2="638.162" y2="558" stroke="var(--_line)" stroke-width="1" marker-end="url(#seq-arrow)" />
+  <rect x="397.76300000000003" y="539.85" width="232" height="16.3" rx="2" ry="2" fill="var(--bg)" />
+  <text x="513.763" y="548" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">release_dongle() (Activa dongle_cooldown)</text>
+  <circle class="sequence-number" cx="389.36400000000003" cy="558" r="9" fill="var(--_arrow)" stroke="var(--bg)" stroke-width="1" />
+  <text x="389.36400000000003" y="558" class="sequence-number-label" font-size="10" text-anchor="middle" font-weight="600" fill="var(--bg)" dy="3.5">9</text>
+</g>
+<g class="message" data-from="Coders" data-to="Coders" data-label="is debugging -&gt; is refactoring" data-line-style="solid" data-arrow-head="filled" data-self="true" data-step="10">
+  <polyline points="389.36400000000003,598 419.36400000000003,598 419.36400000000003,618 389.36400000000003,618" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#seq-arrow)" />
+  <rect x="424.36400000000003" y="599.85" width="157" height="16.3" rx="2" ry="2" fill="var(--bg)" />
+  <text x="427.36400000000003" y="608" font-size="11" text-anchor="start" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">is debugging -&gt; is refactoring</text>
+  <circle class="sequence-number" cx="389.36400000000003" cy="598" r="9" fill="var(--_arrow)" stroke="var(--bg)" stroke-width="1" />
+  <text x="389.36400000000003" y="598" class="sequence-number-label" font-size="10" text-anchor="middle" font-weight="600" fill="var(--bg)" dy="3.5">10</text>
+</g>
+<g class="message" data-from="Monitor" data-to="Coders" data-label="check_all_coders()" data-line-style="solid" data-arrow-head="filled" data-self="false" data-step="11">
+  <line x1="805.4780000000001" y1="696" x2="389.36400000000003" y2="696" stroke="var(--_line)" stroke-width="1" marker-end="url(#seq-arrow)" />
+  <rect x="542.421" y="677.85" width="110" height="16.3" rx="2" ry="2" fill="var(--bg)" />
+  <text x="597.421" y="686" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">check_all_coders()</text>
+  <circle class="sequence-number" cx="805.4780000000001" cy="696" r="9" fill="var(--_arrow)" stroke="var(--bg)" stroke-width="1" />
+  <text x="805.4780000000001" y="696" class="sequence-number-label" font-size="10" text-anchor="middle" font-weight="600" fill="var(--bg)" dy="3.5">11</text>
+</g>
+<g class="message" data-from="Monitor" data-to="Monitor" data-label="stop_with_burnout() (silencio atómico)" data-line-style="solid" data-arrow-head="filled" data-self="true" data-step="12">
+  <polyline points="805.4780000000001,764 835.4780000000001,764 835.4780000000001,784 805.4780000000001,784" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#seq-arrow)" />
+  <rect x="840.4780000000001" y="765.85" width="200" height="16.3" rx="2" ry="2" fill="var(--bg)" />
+  <text x="843.4780000000001" y="774" font-size="11" text-anchor="start" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">stop_with_burnout() (silencio atómico)</text>
+  <circle class="sequence-number" cx="805.4780000000001" cy="764" r="9" fill="var(--_arrow)" stroke="var(--bg)" stroke-width="1" />
+  <text x="805.4780000000001" y="764" class="sequence-number-label" font-size="10" text-anchor="middle" font-weight="600" fill="var(--bg)" dy="3.5">12</text>
+</g>
+<g class="message" data-from="Monitor" data-to="Dongles" data-label="broadcast_all_dongles()" data-line-style="solid" data-arrow-head="filled" data-self="false" data-step="13">
+  <line x1="805.4780000000001" y1="834" x2="638.162" y2="834" stroke="var(--_line)" stroke-width="1" marker-end="url(#seq-arrow)" />
+  <rect x="654.32" y="815.85" width="135" height="16.3" rx="2" ry="2" fill="var(--bg)" />
+  <text x="721.82" y="824" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">broadcast_all_dongles()</text>
+  <circle class="sequence-number" cx="805.4780000000001" cy="834" r="9" fill="var(--_arrow)" stroke="var(--bg)" stroke-width="1" />
+  <text x="805.4780000000001" y="834" class="sequence-number-label" font-size="10" text-anchor="middle" font-weight="600" fill="var(--bg)" dy="3.5">13</text>
+</g>
+<g class="message" data-from="Monitor" data-to="Monitor" data-label="set_simulation_stop()" data-line-style="solid" data-arrow-head="filled" data-self="true" data-step="14">
+  <polyline points="805.4780000000001,898 835.4780000000001,898 835.4780000000001,918 805.4780000000001,918" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#seq-arrow)" />
+  <rect x="840.4780000000001" y="899.85" width="117" height="16.3" rx="2" ry="2" fill="var(--bg)" />
+  <text x="843.4780000000001" y="908" font-size="11" text-anchor="start" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">set_simulation_stop()</text>
+  <circle class="sequence-number" cx="805.4780000000001" cy="898" r="9" fill="var(--_arrow)" stroke="var(--bg)" stroke-width="1" />
+  <text x="805.4780000000001" y="898" class="sequence-number-label" font-size="10" text-anchor="middle" font-weight="600" fill="var(--bg)" dy="3.5">14</text>
+</g>
+<g class="message" data-from="Monitor" data-to="Dongles" data-label="broadcast_all_dongles()" data-line-style="solid" data-arrow-head="filled" data-self="false" data-step="15">
+  <line x1="805.4780000000001" y1="968" x2="638.162" y2="968" stroke="var(--_line)" stroke-width="1" marker-end="url(#seq-arrow)" />
+  <rect x="654.32" y="949.85" width="135" height="16.3" rx="2" ry="2" fill="var(--bg)" />
+  <text x="721.82" y="958" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">broadcast_all_dongles()</text>
+  <circle class="sequence-number" cx="805.4780000000001" cy="968" r="9" fill="var(--_arrow)" stroke="var(--bg)" stroke-width="1" />
+  <text x="805.4780000000001" y="968" class="sequence-number-label" font-size="10" text-anchor="middle" font-weight="600" fill="var(--bg)" dy="3.5">15</text>
+</g>
+<g class="message" data-from="Coders" data-to="Main" data-label="Terminan y retornan NULL" data-line-style="dashed" data-arrow-head="filled" data-self="false" data-step="16">
+  <line x1="389.36400000000003" y1="1008" x2="104.03200000000001" y2="1008" stroke="var(--_line)" stroke-width="1" stroke-dasharray="6 4" marker-end="url(#seq-arrow)" />
+  <rect x="173.19800000000004" y="989.85" width="147" height="16.3" rx="2" ry="2" fill="var(--bg)" />
+  <text x="246.69800000000004" y="998" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">Terminan y retornan NULL</text>
+  <circle class="sequence-number" cx="389.36400000000003" cy="1008" r="9" fill="var(--_arrow)" stroke="var(--bg)" stroke-width="1" />
+  <text x="389.36400000000003" y="1008" class="sequence-number-label" font-size="10" text-anchor="middle" font-weight="600" fill="var(--bg)" dy="3.5">16</text>
+</g>
+<g class="message" data-from="Monitor" data-to="Main" data-label="Termina y retorna NULL" data-line-style="dashed" data-arrow-head="filled" data-self="false" data-step="17">
+  <line x1="805.4780000000001" y1="1048" x2="104.03200000000001" y2="1048" stroke="var(--_line)" stroke-width="1" stroke-dasharray="6 4" marker-end="url(#seq-arrow)" />
+  <rect x="387.75500000000005" y="1029.85" width="134" height="16.3" rx="2" ry="2" fill="var(--bg)" />
+  <text x="454.75500000000005" y="1038" font-size="11" text-anchor="middle" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">Termina y retorna NULL</text>
+  <circle class="sequence-number" cx="805.4780000000001" cy="1048" r="9" fill="var(--_arrow)" stroke="var(--bg)" stroke-width="1" />
+  <text x="805.4780000000001" y="1048" class="sequence-number-label" font-size="10" text-anchor="middle" font-weight="600" fill="var(--bg)" dy="3.5">17</text>
+</g>
+<g class="message" data-from="Main" data-to="Main" data-label="cleanup_simulation() (Free + Mutex Destroy)" data-line-style="solid" data-arrow-head="filled" data-self="true" data-step="18">
+  <polyline points="104.03200000000001,1088 134.032,1088 134.032,1108 104.03200000000001,1108" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#seq-arrow)" />
+  <rect x="139.032" y="1089.85" width="235" height="16.3" rx="2" ry="2" fill="var(--bg)" />
+  <text x="142.032" y="1098" font-size="11" text-anchor="start" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">cleanup_simulation() (Free + Mutex Destroy)</text>
+  <circle class="sequence-number" cx="104.03200000000001" cy="1088" r="9" fill="var(--_arrow)" stroke="var(--bg)" stroke-width="1" />
+  <text x="104.03200000000001" y="1088" class="sequence-number-label" font-size="10" text-anchor="middle" font-weight="600" fill="var(--bg)" dy="3.5">18</text>
+</g>
+<g class="message" data-from="Main" data-to="Main" data-label="return (0)" data-line-style="solid" data-arrow-head="filled" data-self="true" data-step="19">
+  <polyline points="104.03200000000001,1158 134.032,1158 134.032,1178 104.03200000000001,1178" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#seq-arrow)" />
+  <rect x="139.032" y="1159.85" width="56" height="16.3" rx="2" ry="2" fill="var(--bg)" />
+  <text x="142.032" y="1168" font-size="11" text-anchor="start" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">return (0)</text>
+  <circle class="sequence-number" cx="104.03200000000001" cy="1158" r="9" fill="var(--_arrow)" stroke="var(--bg)" stroke-width="1" />
+  <text x="104.03200000000001" y="1158" class="sequence-number-label" font-size="10" text-anchor="middle" font-weight="600" fill="var(--bg)" dy="3.5">19</text>
+</g>
+<g class="actor" data-id="Main" data-label="Hilo Principal (main)" data-type="participant">
+  <rect x="30" y="30" width="148.06400000000002" height="40" rx="4" ry="4" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="104.03200000000001" y="50" font-size="13" text-anchor="middle" font-weight="500" fill="var(--_text)" dy="4.55">Hilo Principal (main)</text>
+</g>
+<g class="actor" data-id="Coders" data-label="Hilos Coders (1..N)" data-type="participant">
+  <rect x="320.519" y="30" width="137.69" height="40" rx="4" ry="4" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="389.36400000000003" y="50" font-size="13" text-anchor="middle" font-weight="500" fill="var(--_text)" dy="4.55">Hilos Coders (1..N)</text>
+</g>
+<g class="actor" data-id="Dongles" data-label="Dongles + Min-Heap" data-type="participant">
+  <rect x="562.648" y="30" width="151.028" height="40" rx="4" ry="4" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="638.162" y="50" font-size="13" text-anchor="middle" font-weight="500" fill="var(--_text)" dy="4.55">Dongles + Min-Heap</text>
+</g>
+<g class="actor" data-id="Monitor" data-label="Hilo Monitor" data-type="participant">
+  <rect x="753.676" y="30" width="103.60400000000001" height="40" rx="4" ry="4" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="805.4780000000001" y="50" font-size="13" text-anchor="middle" font-weight="500" fill="var(--_text)" dy="4.55">Hilo Monitor</text>
+</g>
+</svg>
